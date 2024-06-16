@@ -2,7 +2,7 @@ import {
     contragentsMap,
     contragents,
     createContragentRow,
-    lastClickedCounteragent,
+    lastClickedConteragent,
     populateTable,
     updateLastClickedContragent
 } from "../table/table";
@@ -76,8 +76,8 @@ document.getElementById("save-contragent").addEventListener("click", (e) => {
         return;
     }
 
-    if (lastClickedCounteragent) {
-        const contragentToUpdate = contragentsMap.get(lastClickedCounteragent);
+    if (lastClickedConteragent) {
+        const contragentToUpdate = contragentsMap.get(lastClickedConteragent);
         contragentToUpdate.name = nameToSave;
         contragentToUpdate.itn = itnToSave;
         contragentToUpdate.address = addressToSave;

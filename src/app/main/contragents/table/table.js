@@ -30,10 +30,10 @@ const columnCellNameToIndex= {
     "bin": 4
 }
 
-export let lastClickedCounteragent;
+export let lastClickedConteragent;
 
 export function updateLastClickedContragent(clickedContragent) {
-    lastClickedCounteragent = clickedContragent;
+    lastClickedConteragent = clickedContragent;
 }
 
 populateTable();
@@ -52,7 +52,7 @@ export function populateTable() {
 export function createContragentRow(table, conteragent) {
     let newRow = table.insertRow();
     newRow.className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700";
-    newRow.setAttribute("conterparty-id", conteragent.id);
+    newRow.setAttribute("conteragent-id", conteragent.id);
 
     const cellClassName = "px-6 py-4 font-semibold text-gray-900";
 
@@ -91,17 +91,17 @@ export function createContragentRow(table, conteragent) {
     newRow.addEventListener("dblclick", () => {
         const contragentForm = document.getElementById("contragent-form");
 
-        const contragentId = parseInt(newRow.getAttribute("conterparty-id"));
+        const contragentId = parseInt(newRow.getAttribute("conteragent-id"));
         updateLastClickedContragent(contragentId);
 
-        const currentCounteragent = contragentsMap.get(contragentId);
+        const currentConteragent = contragentsMap.get(contragentId);
 
         document.getElementById("contragent-modal-button").click();
 
-        contragentForm.querySelector('input[name="name"]').value = currentCounteragent.name;
-        contragentForm.querySelector('input[name="itn"]').value = currentCounteragent.itn;
-        contragentForm.querySelector('input[name="address"]').value = currentCounteragent.address;
-        contragentForm.querySelector('input[name="trrc"]').value = currentCounteragent.trrc;
+        contragentForm.querySelector('input[name="name"]').value = currentConteragent.name;
+        contragentForm.querySelector('input[name="itn"]').value = currentConteragent.itn;
+        contragentForm.querySelector('input[name="address"]').value = currentConteragent.address;
+        contragentForm.querySelector('input[name="trrc"]').value = currentConteragent.trrc;
     })
 }
 
