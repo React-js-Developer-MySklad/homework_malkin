@@ -4,9 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 
 module.exports = {
-    entry: './src/main.js',
+    entry: './src/index.tsx',
     module: {
-
         rules: [
             {
                 test: /\.css$/i,
@@ -24,18 +23,54 @@ module.exports = {
                     {
                         loader: "css-loader"
                     },
-                    'postcss-loader'
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    'postcss-preset-env',
+                                    'tailwindcss'
+                                ],
+                            },
+                        }
+                    }
                 ],
             },
             {
-                test: /\.html$/i,
-                loader: "html-loader",
+                test: /\.(ts|tsx)$/,
+                exclude: /node_modules/,
+                use: 'ts-loader',
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: '@svgr/webpack',
+                        options: {
+                            svgo: false, // You can customize this option
+                        },
+                    },
+                    'url-loader', // fallback loader
+                ],
+            },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
+                    },
+                },
             },
         ],
     },
     output: {
-        filename: 'main.js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
+    },
+    resolve: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
     plugins: [
         new HtmlWebpackPlugin({
