@@ -13,7 +13,7 @@ const App: React.FC = () => {
   const [data, setData] = useState<Contragent[]>(initialData);
   const [openedModal, setOpenedModal] = useState(false);
   const [selectedContragent, setSelectedContragent] =
-    useState<Contragent | null>(null);
+    useState<Contragent | undefined>(undefined);
 
   useEffect(() => {
     if (selectedContragent?.id) {
@@ -31,10 +31,6 @@ const App: React.FC = () => {
     setOpenedModal(false);
   };
 
-  const openModal = () => {
-    setOpenedModal(true);
-  };
-
   const openModalWithContragent = (contragent: Contragent) => {
     setSelectedContragent(
       new Contragent(
@@ -47,7 +43,7 @@ const App: React.FC = () => {
     );
   };
 
-  const handleContragent = (contragent: Contragent) => {
+  const onSaveContragent = (contragent: Contragent) => {
     if (contragent.id) {
       handleUpdateContragent(contragent);
     } else {
@@ -57,9 +53,7 @@ const App: React.FC = () => {
   };
 
   const handleAddContragent = (contragent: Contragent) => {
-    if (contragent) {
-      contragent.id = Math.floor(Math.random() * 100000);
-    }
+    contragent.id = Math.floor(Math.random() * 100000);
     setData([...data, contragent]);
   };
 
@@ -88,9 +82,8 @@ const App: React.FC = () => {
       <ModalCustom
         selectedContragent={selectedContragent}
         opened={openedModal}
-        openModal={openModal}
         closeModal={closeModal}
-        onSave={handleContragent}
+        onSave={onSaveContragent}
       ></ModalCustom>
       <Footer></Footer>
     </div>

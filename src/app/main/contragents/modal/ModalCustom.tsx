@@ -5,8 +5,7 @@ import { Button, Modal } from 'flowbite-react';
 import './contragentModal.css';
 
 interface Props {
-  selectedContragent: Contragent | null;
-  openModal: () => void;
+  selectedContragent: Contragent | undefined;
   closeModal: () => void;
   onSave: (contragent: Contragent) => void;
   opened: boolean;
