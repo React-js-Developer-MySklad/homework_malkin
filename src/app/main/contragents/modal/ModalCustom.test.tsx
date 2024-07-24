@@ -6,14 +6,12 @@ import { Contragent } from '../../../types';
 
 describe('ModalCustom', () => {
   it('renders with form', () => {
-    const handleOpen = jest.fn();
     const handleClose = jest.fn();
     const handleSave = jest.fn();
 
     const { getByLabelText } = render(
       <ModalCustom
         selectedContragent={null}
-        openModal={handleOpen}
         closeModal={handleClose}
         onSave={handleSave}
         opened={true}
@@ -27,14 +25,12 @@ describe('ModalCustom', () => {
   });
 
   it('calls onSave when form is submitted', () => {
-    const handleOpen = jest.fn();
     const handleClose = jest.fn();
     const handleSave = jest.fn();
 
     const { getByLabelText, getByText } = render(
       <ModalCustom
         selectedContragent={null}
-        openModal={handleOpen}
         closeModal={handleClose}
         onSave={handleSave}
         opened={true}
@@ -65,14 +61,12 @@ describe('ModalCustom', () => {
   });
 
   it('calls closeModal when close buttons are clicked', () => {
-    const handleOpen = jest.fn();
     const handleClose = jest.fn();
     const handleSave = jest.fn();
 
     const { getByText } = render(
       <ModalCustom
         selectedContragent={null}
-        openModal={handleOpen}
         closeModal={handleClose}
         onSave={handleSave}
         opened={true}
@@ -87,7 +81,6 @@ describe('ModalCustom', () => {
   });
 
   it('opens with prefilled form if contragent was provided', () => {
-    const handleOpen = jest.fn();
     const handleClose = jest.fn();
     const handleSave = jest.fn();
     const selectedContragent = {
@@ -101,7 +94,6 @@ describe('ModalCustom', () => {
     const { getByLabelText } = render(
       <ModalCustom
         selectedContragent={selectedContragent}
-        openModal={handleOpen}
         closeModal={handleClose}
         onSave={handleSave}
         opened={true}
