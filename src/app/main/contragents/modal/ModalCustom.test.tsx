@@ -11,7 +11,7 @@ describe('ModalCustom', () => {
 
     const { getByLabelText } = render(
       <ModalCustom
-        selectedContragent={null}
+        selectedContragent={undefined}
         closeModal={handleClose}
         onSave={handleSave}
         opened={true}
@@ -30,7 +30,7 @@ describe('ModalCustom', () => {
 
     const { getByLabelText, getByText } = render(
       <ModalCustom
-        selectedContragent={null}
+        selectedContragent={undefined}
         closeModal={handleClose}
         onSave={handleSave}
         opened={true}
@@ -66,7 +66,7 @@ describe('ModalCustom', () => {
 
     const { getByText } = render(
       <ModalCustom
-        selectedContragent={null}
+        selectedContragent={undefined}
         closeModal={handleClose}
         onSave={handleSave}
         opened={true}

@@ -19,8 +19,8 @@ const ContragentContext = createContext<ContragentContextType | undefined>(
 
 export const ContragentProvider = ({ children }: { children: ReactNode }) => {
   const [contragents, setContragents] = useState<Contragent[]>([]);
-  const [currentContragent, setCurrentContragent] = useState<Contragent | null>(
-    null
+  const [currentContragent, setCurrentContragent] = useState<Contragent | undefined>(
+    undefined
   );
 
   useEffect(() => {

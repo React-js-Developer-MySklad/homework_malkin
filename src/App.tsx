@@ -18,8 +18,6 @@ const App: React.FC = () => {
   } = useContragentContext();
 
   const [openedModal, setOpenedModal] = useState(false);
-  const [selectedContragent, setSelectedContragent] =
-    useState<Contragent | undefined>(undefined);
 
   useEffect(() => {
     if (currentContragent?.id) {
@@ -29,7 +27,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!openedModal) {
-      setCurrentContragent(null);
+      setCurrentContragent(undefined);
     }
   }, [openedModal]);
 
