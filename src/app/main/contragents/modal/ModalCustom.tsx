@@ -5,8 +5,7 @@ import {Contragent, FormValues} from '../../../types';
 import { Form } from 'react-final-form';
 
 interface Props {
-  selectedContragent: Contragent | null;
-  openModal: () => void;
+  selectedContragent: Contragent | undefined;
   closeModal: () => void;
   onSave: (contragent: Contragent) => void;
   opened: boolean;

@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!openedModal) {
-      setCurrentContragent(null);
+      setCurrentContragent(undefined);
     }
   }, [openedModal]);
 
@@ -35,15 +35,11 @@ const App: React.FC = () => {
     setOpenedModal(false);
   };
 
-  const openModal = () => {
-    setOpenedModal(true);
-  };
-
   const openModalWithContragent = (contragent: Contragent) => {
     setCurrentContragent({ ...contragent });
   };
 
-  const handleContragent = (contragent: Contragent) => {
+  const onSaveContragent = (contragent: Contragent) => {
     if (contragent.id) {
       handleUpdateContragent(contragent);
     } else {
@@ -80,9 +76,8 @@ const App: React.FC = () => {
       <ModalCustom
         selectedContragent={currentContragent}
         opened={openedModal}
-        openModal={openModal}
         closeModal={closeModal}
-        onSave={handleContragent}
+        onSave={onSaveContragent}
       ></ModalCustom>
       <Footer></Footer>
     </div>

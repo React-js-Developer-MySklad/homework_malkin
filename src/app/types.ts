@@ -3,8 +3,8 @@ export interface ContragentContextType {
   addContragent: (contragent: Contragent) => void;
   updateContragent: (contragent: Contragent) => void;
   removeContragent: (id: number) => void;
-  currentContragent: Contragent | null;
-  setCurrentContragent: (constragent: Contragent | null) => void;
+  currentContragent: Contragent | undefined;
+  setCurrentContragent: (constragent: Contragent | undefined) => void;
 }
 
 export interface FormValues {
