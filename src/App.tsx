@@ -49,10 +49,10 @@ const App: React.FC = () => {
   };
 
   const handleAddContragent = (contragent: Contragent) => {
-      if (contragent) {
-          contragent.id = Math.floor(Math.random() * 100000);
-      }
-      addContragent(contragent);
+    if (contragent) {
+      contragent.id = Math.floor(Math.random() * 100000);
+    }
+    addContragent(contragent);
   };
 
   const handleUpdateContragent = (contragent: Contragent) => {
