@@ -1,28 +1,32 @@
 import React from 'react';
-import { Label, TextInput } from 'flowbite-react';
+import {Label, TextInput, TextInputProps} from 'flowbite-react';
+import { useField } from 'react-final-form';
 
-interface Props {
-  type: string;
-  propertyName: string;
-  labelName: string;
-  placeholder: string;
-  value?: string;
-  setProperty: (property: string) => void;
+interface Props extends TextInputProps {
+  name: string;
+  label: string;
 }
 
-export const FormCell: React.FC<Props> = (props) => {
+export const FormCell: React.FC<Props> = ( {name, label, ...rest} ) => {
+  const {
+    input,
+    meta: { touched, error },
+  } = useField(name);
+
   return (
     <div className="px-2 py-1 space-y-1">
-      <Label className="text-md" htmlFor={props.propertyName}>
-        {props.labelName}
+      <Label className="text-md" data-testid={name} htmlFor={name}>
+        {label}
       </Label>
       <TextInput
-        id={props.propertyName}
-        placeholder={props.placeholder}
-        value={props.value}
-        onChange={(event) => props.setProperty(event.target.value)}
+        {...input}
+        {...rest}
         required
+        data-testid={`input-${name}`}
       />
+      {touched && error && (
+        <span className="text-red-500 text-xs">{error}</span>
+      )}
     </div>
   );
 };

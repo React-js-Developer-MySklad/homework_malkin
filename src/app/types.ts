@@ -7,6 +7,13 @@ export interface ContragentContextType {
   setCurrentContragent: (constragent: Contragent | null) => void;
 }
 
+export interface FormValues {
+  name: string;
+  itn: string;
+  address: string;
+  trrc: string;
+}
+
 export type Contragent = {
   id: number | undefined;
   name: string;

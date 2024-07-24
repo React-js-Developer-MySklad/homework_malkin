@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FormCell } from './FormCell';
-import { Button, Modal } from 'flowbite-react';
-import { Contragent } from '../../../types';
+import { Button, Label, Modal, TextInput } from 'flowbite-react';
+import {Contragent, FormValues} from '../../../types';
+import { Form } from 'react-final-form';
 
 interface Props {
   selectedContragent: Contragent | null;
@@ -13,36 +14,49 @@ interface Props {
 
 export const ModalCustom: React.FC<Props> = (props) => {
   const [id, setId] = useState<number>();
-  const [name, setName] = useState('');
-  const [itn, setItn] = useState('');
-  const [address, setAddress] = useState('');
-  const [trrc, setTrrc] = useState('');
+  const [initialFormValues, setInitialFormValues] = useState({});
 
   useEffect(() => {
     const selectedContragent = props.selectedContragent;
     if (selectedContragent) {
       setId(selectedContragent.id);
-      setName(selectedContragent.name);
-      setItn(selectedContragent.itn);
-      setAddress(selectedContragent.address);
-      setTrrc(selectedContragent.trrc);
+      setInitialFormValues({
+        name: selectedContragent.name,
+        itn: selectedContragent.itn,
+        address: selectedContragent.address,
+        trrc: selectedContragent.trrc,
+      });
     } else {
       setId(undefined);
-      setName('');
-      setItn('');
-      setAddress('');
-      setTrrc('');
+      setInitialFormValues({});
     }
   }, [props.selectedContragent]);
 
-  const onSaveClick = () => {
+  const onSaveClick = (values: FormValues) => {
     props.onSave({
       id: id,
-      name: name,
-      itn: itn,
-      address: address,
-      trrc: trrc,
+      name: values.name,
+      itn: values.itn,
+      address: values.address,
+      trrc: values.trrc,
     });
+  };
+
+  const validate = (values: FormValues) => {
+    const errors: Partial<FormValues> = {};
+    if (!values.name) {
+      errors.name = 'Поле должно быть заполнено';
+    }
+    if (!values.itn || !values.itn.match(/^\d{11}$/)) {
+      errors.itn = 'Значение должно состоять из 11 цифр';
+    }
+    if (!values.address) {
+      errors.address = 'Поле должно быть заполнено';
+    }
+    if (!values.trrc || !values.trrc.match(/^\d{9}$/)) {
+      errors.trrc = 'Значение должно состоять из 9 цифр';
+    }
+    return errors;
   };
 
   return (
@@ -55,58 +69,56 @@ export const ModalCustom: React.FC<Props> = (props) => {
       >
         <Modal.Header className="text-lg">Контрагент</Modal.Header>
         <Modal.Body>
-          <div className="flex flex-row flex-wrap">
-            <FormCell
-              type={'text'}
-              labelName={'Наименование'}
-              placeholder={'Сергей'}
-              propertyName={'name'}
-              setProperty={setName}
-              value={name}
-            ></FormCell>
-            <FormCell
-              type={'text'}
-              labelName={'ИНН'}
-              placeholder={'1111'}
-              propertyName={'itn'}
-              setProperty={setItn}
-              value={itn}
-            ></FormCell>
-            <FormCell
-              type={'address'}
-              labelName={'Адрес'}
-              placeholder={'ул. Пушкина'}
-              propertyName={'address'}
-              setProperty={setAddress}
-              value={address}
-            ></FormCell>
-            <FormCell
-              type={'trrc'}
-              labelName={'КПП'}
-              placeholder={'222222'}
-              propertyName={'trrc'}
-              setProperty={setTrrc}
-              value={trrc}
-            ></FormCell>
-          </div>
-          <div className="px-2 py-3 flex flex-row space-x-3">
-            <Button
-              className="mx-3"
-              color="blue"
-              size={'md'}
-              onClick={onSaveClick}
-            >
-              Сохранить
-            </Button>
-            <Button
-              className="mx-3"
-              color="blue"
-              size={'md'}
-              onClick={props.closeModal}
-            >
-              Отменить
-            </Button>
-          </div>
+            <Form
+              onSubmit={onSaveClick}
+              validate={validate}
+              initialValues={initialFormValues}
+              render={({ handleSubmit, submitting, pristine }) => (
+                  <form onSubmit={handleSubmit}>
+                    <div className="flex flex-row flex-wrap">
+                      <FormCell
+                          name="name"
+                          label="Наименование"
+                          placeholder="Сергей"
+                      ></FormCell>
+                      <FormCell
+                          name="itn"
+                          label="ИНН"
+                          placeholder="11111"
+                      ></FormCell>
+                      <FormCell
+                          name="address"
+                          label="Адрес"
+                          placeholder="ул. Колотушкина"
+                      ></FormCell>
+                      <FormCell
+                          name="trrc"
+                          label="КПП"
+                          placeholder="222222"
+                      ></FormCell>
+                    </div>
+                      <div className="px-2 py-3 flex flex-row space-x-3">
+                        <Button
+                            type="submit"
+                            className="mx-3"
+                            color="blue"
+                            size={'md'}
+                            disabled={submitting || pristine}
+                        >
+                          Сохранить
+                        </Button>
+                        <Button
+                            className="mx-3"
+                            color="blue"
+                            size={'md'}
+                            onClick={props.closeModal}
+                        >
+                          Отменить
+                        </Button>
+                      </div>
+                  </form>
+                )}
+              ></Form>
         </Modal.Body>
       </Modal>
     </>
