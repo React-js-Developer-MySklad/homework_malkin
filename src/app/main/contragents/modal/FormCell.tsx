@@ -1,5 +1,5 @@
 import React from 'react';
-import {Label, TextInput, TextInputProps} from 'flowbite-react';
+import { Label, TextInput, TextInputProps } from 'flowbite-react';
 import { useField } from 'react-final-form';
 
 interface Props extends TextInputProps {
@@ -7,7 +7,7 @@ interface Props extends TextInputProps {
   label: string;
 }
 
-export const FormCell: React.FC<Props> = ( {name, label, ...rest} ) => {
+export const FormCell: React.FC<Props> = ({ name, label, ...rest }) => {
   const {
     input,
     meta: { touched, error },
@@ -18,12 +18,7 @@ export const FormCell: React.FC<Props> = ( {name, label, ...rest} ) => {
       <Label className="text-md" data-testid={name} htmlFor={name}>
         {label}
       </Label>
-      <TextInput
-        {...input}
-        {...rest}
-        required
-        data-testid={`input-${name}`}
-      />
+      <TextInput {...input} {...rest} required data-testid={`input-${name}`} />
       {touched && error && (
         <span className="text-red-500 text-xs">{error}</span>
       )}

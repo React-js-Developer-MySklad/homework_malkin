@@ -1,4 +1,4 @@
-import {fireEvent, getByTestId, render} from '@testing-library/react';
+import { fireEvent, getByTestId, render } from '@testing-library/react';
 import { ModalCustom } from './ModalCustom';
 import React from 'react';
 import '@testing-library/jest-dom';
@@ -61,18 +61,16 @@ describe('ModalCustom', () => {
   });
 
   it('does not call onSave when form has invalid data', () => {
-    const handleOpen = jest.fn();
     const handleClose = jest.fn();
     const handleSave = jest.fn();
 
     const { getByTestId, getByText } = render(
-        <ModalCustom
-            selectedContragent={null}
-            openModal={handleOpen}
-            closeModal={handleClose}
-            onSave={handleSave}
-            opened={true}
-        ></ModalCustom>
+      <ModalCustom
+        selectedContragent={undefined}
+        closeModal={handleClose}
+        onSave={handleSave}
+        opened={true}
+      ></ModalCustom>
     );
 
     const nameInput = getByTestId(/input-name/i);

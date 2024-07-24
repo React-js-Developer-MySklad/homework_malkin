@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FormCell } from './FormCell';
 import { Button, Label, Modal, TextInput } from 'flowbite-react';
-import {Contragent, FormValues} from '../../../types';
+import { Contragent, FormValues } from '../../../types';
 import { Form } from 'react-final-form';
 
 interface Props {
@@ -68,56 +68,56 @@ export const ModalCustom: React.FC<Props> = (props) => {
       >
         <Modal.Header className="text-lg">Контрагент</Modal.Header>
         <Modal.Body>
-            <Form
-              onSubmit={onSaveClick}
-              validate={validate}
-              initialValues={initialFormValues}
-              render={({ handleSubmit, submitting, pristine }) => (
-                  <form onSubmit={handleSubmit}>
-                    <div className="flex flex-row flex-wrap">
-                      <FormCell
-                          name="name"
-                          label="Наименование"
-                          placeholder="Сергей"
-                      ></FormCell>
-                      <FormCell
-                          name="itn"
-                          label="ИНН"
-                          placeholder="11111"
-                      ></FormCell>
-                      <FormCell
-                          name="address"
-                          label="Адрес"
-                          placeholder="ул. Колотушкина"
-                      ></FormCell>
-                      <FormCell
-                          name="trrc"
-                          label="КПП"
-                          placeholder="222222"
-                      ></FormCell>
-                    </div>
-                      <div className="px-2 py-3 flex flex-row space-x-3">
-                        <Button
-                            type="submit"
-                            className="mx-3"
-                            color="blue"
-                            size={'md'}
-                            disabled={submitting || pristine}
-                        >
-                          Сохранить
-                        </Button>
-                        <Button
-                            className="mx-3"
-                            color="blue"
-                            size={'md'}
-                            onClick={props.closeModal}
-                        >
-                          Отменить
-                        </Button>
-                      </div>
-                  </form>
-                )}
-              ></Form>
+          <Form
+            onSubmit={onSaveClick}
+            validate={validate}
+            initialValues={initialFormValues}
+            render={({ handleSubmit, submitting, pristine }) => (
+              <form onSubmit={handleSubmit}>
+                <div className="flex flex-row flex-wrap">
+                  <FormCell
+                    name="name"
+                    label="Наименование"
+                    placeholder="Сергей"
+                  ></FormCell>
+                  <FormCell
+                    name="itn"
+                    label="ИНН"
+                    placeholder="11111"
+                  ></FormCell>
+                  <FormCell
+                    name="address"
+                    label="Адрес"
+                    placeholder="ул. Колотушкина"
+                  ></FormCell>
+                  <FormCell
+                    name="trrc"
+                    label="КПП"
+                    placeholder="222222"
+                  ></FormCell>
+                </div>
+                <div className="px-2 py-3 flex flex-row space-x-3">
+                  <Button
+                    type="submit"
+                    className="mx-3"
+                    color="blue"
+                    size={'md'}
+                    disabled={submitting || pristine}
+                  >
+                    Сохранить
+                  </Button>
+                  <Button
+                    className="mx-3"
+                    color="blue"
+                    size={'md'}
+                    onClick={props.closeModal}
+                  >
+                    Отменить
+                  </Button>
+                </div>
+              </form>
+            )}
+          ></Form>
         </Modal.Body>
       </Modal>
     </>
