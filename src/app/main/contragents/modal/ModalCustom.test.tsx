@@ -2,20 +2,20 @@ import { fireEvent, render } from '@testing-library/react';
 import { ModalCustom } from './ModalCustom';
 import React from 'react';
 import '@testing-library/jest-dom';
-import { Contragent } from '../table/Contragent';
+import { Contragent } from '../../../types';
 
-describe("ModalCustom", () => {
+describe('ModalCustom', () => {
   it('renders with form', () => {
     const handleClose = jest.fn();
     const handleSave = jest.fn();
 
     const { getByLabelText } = render(
-        <ModalCustom
-            selectedContragent={undefined}
-            closeModal={handleClose}
-            onSave={handleSave}
-            opened={true}
-        ></ModalCustom>
+      <ModalCustom
+        selectedContragent={undefined}
+        closeModal={handleClose}
+        onSave={handleSave}
+        opened={true}
+      ></ModalCustom>
     );
 
     expect(getByLabelText(/Наименование/i)).toBeInTheDocument();
@@ -29,12 +29,12 @@ describe("ModalCustom", () => {
     const handleSave = jest.fn();
 
     const { getByLabelText, getByText } = render(
-        <ModalCustom
-            selectedContragent={undefined}
-            closeModal={handleClose}
-            onSave={handleSave}
-            opened={true}
-        ></ModalCustom>
+      <ModalCustom
+        selectedContragent={undefined}
+        closeModal={handleClose}
+        onSave={handleSave}
+        opened={true}
+      ></ModalCustom>
     );
 
     const nameInput = getByLabelText(/Наименование/i);
@@ -49,10 +49,15 @@ describe("ModalCustom", () => {
     fireEvent.change(trrcInput, { target: { value: '22222' } });
     fireEvent.click(submitButton);
 
-    expect(handleSave).toHaveBeenNthCalledWith(
-        1,
-        new Contragent(undefined, 'Michael', '11111', 'ул. Колотушкина', '22222')
-    );
+    const expectedContragent: Contragent = {
+      id: undefined,
+      name: 'Michael',
+      itn: '11111',
+      address: 'ул. Колотушкина',
+      trrc: '22222',
+    };
+
+    expect(handleSave).toHaveBeenNthCalledWith(1, expectedContragent);
   });
 
   it('calls closeModal when close buttons are clicked', () => {
@@ -60,12 +65,12 @@ describe("ModalCustom", () => {
     const handleSave = jest.fn();
 
     const { getByText } = render(
-        <ModalCustom
-            selectedContragent={undefined}
-            closeModal={handleClose}
-            onSave={handleSave}
-            opened={true}
-        ></ModalCustom>
+      <ModalCustom
+        selectedContragent={undefined}
+        closeModal={handleClose}
+        onSave={handleSave}
+        opened={true}
+      ></ModalCustom>
     );
 
     const closeButton = getByText(/отменить/i);
@@ -78,21 +83,21 @@ describe("ModalCustom", () => {
   it('opens with prefilled form if contragent was provided', () => {
     const handleClose = jest.fn();
     const handleSave = jest.fn();
-    const selectedContragent = new Contragent(
-        100,
-        'Pavel',
-        '11111',
-        'ул. Колотушкина',
-        '22222'
-    );
+    const selectedContragent = {
+      id: 100,
+      name: 'Pavel',
+      itn: '11111',
+      address: 'ул. Колотушкина',
+      trrc: '22222',
+    };
 
     const { getByLabelText } = render(
-        <ModalCustom
-            selectedContragent={selectedContragent}
-            closeModal={handleClose}
-            onSave={handleSave}
-            opened={true}
-        ></ModalCustom>
+      <ModalCustom
+        selectedContragent={selectedContragent}
+        closeModal={handleClose}
+        onSave={handleSave}
+        opened={true}
+      ></ModalCustom>
     );
 
     const nameInput = getByLabelText(/Наименование/i) as HTMLInputElement;
@@ -105,4 +110,4 @@ describe("ModalCustom", () => {
     expect(addressInput.value).toBe(selectedContragent.address);
     expect(trrcInput.value).toBe(selectedContragent.trrc);
   });
-})
+});

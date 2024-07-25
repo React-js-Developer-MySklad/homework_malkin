@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../main.css';
-import { Contragent } from './Contragent';
 import { Row } from './Row';
+import { Contragent } from '../../../types';
 
 interface Props {
   data: Contragent[];

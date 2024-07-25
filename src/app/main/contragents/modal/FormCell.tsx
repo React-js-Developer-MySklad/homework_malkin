@@ -12,8 +12,8 @@ interface Props {
 
 export const FormCell: React.FC<Props> = (props) => {
   return (
-    <div className="px-2 py-0.5 mb-2 block">
-      <Label className={'text-md'} htmlFor={props.propertyName}>
+    <div className="px-2 py-1 space-y-1">
+      <Label className="text-md" htmlFor={props.propertyName}>
         {props.labelName}
       </Label>
       <TextInput

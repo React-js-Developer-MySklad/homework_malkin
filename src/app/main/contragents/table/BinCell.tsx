@@ -1,6 +1,6 @@
 import React from 'react';
 import bimImage from '../../../images/bin.svg';
-import { Contragent } from './Contragent';
+import { Contragent } from '../../../types';
 
 interface Props {
   contragent: Contragent;

@@ -1,29 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from './app/header/Header';
 import { Footer } from './app/footer/Footer';
-import { Contragent } from './app/main/contragents/table/Contragent';
 import { TableCustom } from './app/main/contragents/table/TableCustom';
 import './style.css';
 import { ModalCustom } from './app/main/contragents/modal/ModalCustom';
+import { useContragentContext } from './app/main/contragents/context/ContragentProvider';
+import { Contragent } from './app/types';
 
 const App: React.FC = () => {
-  const initialData: Contragent[] = [];
-  initialData.push(new Contragent(1, 'dsdsd', 'dasds', 'dsadasd', 'dsadasd'));
+  const {
+    currentContragent,
+    addContragent,
+    updateContragent,
+    setCurrentContragent,
+    removeContragent,
+    contragents,
+  } = useContragentContext();
 
-  const [data, setData] = useState<Contragent[]>(initialData);
   const [openedModal, setOpenedModal] = useState(false);
-  const [selectedContragent, setSelectedContragent] =
-    useState<Contragent | undefined>(undefined);
 
   useEffect(() => {
-    if (selectedContragent?.id) {
+    if (currentContragent?.id) {
       setOpenedModal(true);
     }
-  }, [selectedContragent]);
+  }, [currentContragent]);
 
   useEffect(() => {
     if (!openedModal) {
-      setSelectedContragent(Contragent.emptyContragent);
+      setCurrentContragent(undefined);
     }
   }, [openedModal]);
 
@@ -32,15 +36,7 @@ const App: React.FC = () => {
   };
 
   const openModalWithContragent = (contragent: Contragent) => {
-    setSelectedContragent(
-      new Contragent(
-        contragent.id,
-        contragent.name,
-        contragent.itn,
-        contragent.address,
-        contragent.trrc
-      )
-    );
+    setCurrentContragent({ ...contragent });
   };
 
   const onSaveContragent = (contragent: Contragent) => {
@@ -53,34 +49,32 @@ const App: React.FC = () => {
   };
 
   const handleAddContragent = (contragent: Contragent) => {
-    contragent.id = Math.floor(Math.random() * 100000);
-    setData([...data, contragent]);
+    if (contragent) {
+      contragent.id = Math.floor(Math.random() * 100000);
+    }
+    addContragent(contragent);
   };
 
   const handleUpdateContragent = (contragent: Contragent) => {
-    const updatedContragents = data.map((existingContragent) =>
-      existingContragent.id === contragent.id ? contragent : existingContragent
-    );
-    setData(updatedContragents);
+    updateContragent(contragent);
   };
 
   const handleDeleteContragent = (contragent: Contragent) => {
-    const updatedContragents = data.filter(
-      (existingContragent) => existingContragent.id !== contragent.id
-    );
-    setData(updatedContragents);
+    if (contragent.id) {
+      removeContragent(contragent.id);
+    }
   };
 
   return (
     <div>
       <Header openModal={setOpenedModal}></Header>
       <TableCustom
-        data={data}
+        data={contragents}
         onDeleteContragent={handleDeleteContragent}
         openModalWithContragent={openModalWithContragent}
       ></TableCustom>
       <ModalCustom
-        selectedContragent={selectedContragent}
+        selectedContragent={currentContragent}
         opened={openedModal}
         closeModal={closeModal}
         onSave={onSaveContragent}

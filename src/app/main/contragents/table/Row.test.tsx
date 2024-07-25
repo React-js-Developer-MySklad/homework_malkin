@@ -1,19 +1,18 @@
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { Row } from './Row';
-import { Contragent } from './Contragent';
 
 describe('Row', () => {
   it('calls openModalWithContragent with specific conteragent after double click event on row', () => {
     const openModalWithContragent = jest.fn();
     const onDeleteContragent = jest.fn();
-    const expectedContragent = new Contragent(
-      undefined,
-      'Pavel',
-      '111',
-      'ddsad',
-      '222'
-    );
+    const expectedContragent = {
+      id: undefined,
+      name: 'Pavel',
+      itn: '111',
+      address: 'ddsad',
+      trrc: '222',
+    };
 
     const { getByTestId } = render(
       <Row
@@ -38,7 +37,13 @@ describe('Row', () => {
     const { getByTestId } = render(
       <Row
         openModalWithContragent={openModalWithContragent}
-        contragent={Contragent.emptyContragent()}
+        contragent={{
+          id: 1,
+          name: '1',
+          itn: '2',
+          address: '3',
+          trrc: '4',
+        }}
         onDeleteContragent={onDeleteContragent}
       ></Row>
     );
@@ -52,13 +57,13 @@ describe('Row', () => {
     const openModalWithContragent = jest.fn();
     const onDeleteContragent = jest.fn();
 
-    const expectedContragent = new Contragent(
-      undefined,
-      'Pavel',
-      '111',
-      'ddsad',
-      '222'
-    );
+    const expectedContragent = {
+      id: undefined,
+      name: 'Pavel',
+      itn: '111',
+      address: 'ddsad',
+      trrc: '222',
+    };
 
     const { getByTestId } = render(
       <Row

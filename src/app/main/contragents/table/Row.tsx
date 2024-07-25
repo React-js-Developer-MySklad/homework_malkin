@@ -1,7 +1,7 @@
 import React from 'react';
-import { Contragent } from './Contragent';
 import { DataCell } from './DataCell';
 import { BinCell } from './BinCell';
+import { Contragent } from '../../../types';
 
 interface Props {
   contragent: Contragent;
